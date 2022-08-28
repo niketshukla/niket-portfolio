@@ -18,7 +18,7 @@ $(document).ready(function(){
     $(this).scrollTop(0);
 });
 
-// Hide Header on on scroll down
+// Hide Header on scroll down
 var didScroll;
 var lastScrollTop = 0;
 var delta = 5;
