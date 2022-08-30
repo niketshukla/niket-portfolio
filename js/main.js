@@ -38,20 +38,6 @@ setInterval(function() {
 
 function hasScrolled() {
     var st = $(this).scrollTop();
-    // Make sure they scroll more than delta
-    if(Math.abs(lastScrollTop - st) <= delta)
-        return;
-    // If they scrolled down and are past the navbar, add class .nav-up.
-    // This is necessary so you never see what is "behind" the navbar.
-    if (st > lastScrollTop && st > navbarHeight){
-        // Scroll Down
-        $('header').removeClass('nav-down').addClass('nav-up');
-    } else {
-        // Scroll Up
-        if(st + $(window).height() < $(document).height()) {
-            $('header').removeClass('nav-up').addClass('nav-down');
-        }
-    }
     if (st < reachedTop){
         // Scroll Down
         $('header').removeClass('nav_back');
@@ -104,20 +90,26 @@ $('.pill_accordian_data').on('shown.bs.collapse', function(e) {
     }, 500);
 });
 
-// get system time
-function startTime() {
-    var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
-    var ampm = h >= 12 ? 'pm' : 'am';
-    m = checkTime(m);
-    s = checkTime(s);
-    document.getElementById('sys-time').innerHTML =
-    h + ":" + m + ' ' + ampm + ',';
-    var t = setTimeout(startTime, 500);
-}
-function checkTime(i) {
-    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-    return i;
-}
+/* smooth scroll */
+// Add smooth scrolling to all links
+$("nav a").on('click', function(event) {
+
+  // Make sure this.hash has a value before overriding default behavior
+  if (this.hash !== "") {
+    // Prevent default anchor click behavior
+    event.preventDefault();
+  
+    // Store hash
+    var hash = this.hash;
+  
+    // Using jQuery's animate() method to add smooth page scroll
+    // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+    $('html, body').animate({
+    scrollTop: $(hash).offset().top
+    }, 1500, function(){
+  
+    // Add hash (#) to URL when done scrolling (default click behavior)
+    window.location.hash = hash;
+    });
+  } // End if
+  });
