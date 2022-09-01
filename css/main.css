@@ -1433,6 +1433,9 @@ padding-bottom: 70px;
 .contact_form {
 margin: 30px 0px 0px;
 }
+.headshot{
+  width: 100px;
+}
 }
 
 @media(max-width:480px){
